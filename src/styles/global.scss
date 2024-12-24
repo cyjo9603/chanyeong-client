@@ -1,0 +1,21 @@
+@use '@/styles/variables.scss' as *;
+
+:root {
+  --color-background: #{$light-background-color};
+  --color-primary-rgb: #{$light-primary-rgb-color};
+  --color-primary-font: #{$light-primary-font-color};
+  --color-darkmode-btn: #{$light-darkmode-btn-color};
+}
+
+[data-theme='dark'] {
+  --color-background: #{$dark-background-color};
+  --color-primary-rgb: #{$dark-primary-rgb-color};
+  --color-primary-font: #{$dark-primary-font-color};
+  --color-darkmode-btn: #{$dark-darkmode-btn-color};
+}
+
+body {
+  color: var(--color-primary-font);
+  background-color: var(--color-background);
+  transition: background-color 0.3s ease, color 0.3s ease, fill 0.3s ease;
+}

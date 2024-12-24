@@ -1,0 +1,7 @@
+@use '@/styles/variables.scss' as *;
+
+@mixin useDesktop {
+  @media (min-width: #{$breackpoint-desktop}) {
+    @content;
+  }
+}
