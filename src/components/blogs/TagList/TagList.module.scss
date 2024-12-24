@@ -1,0 +1,45 @@
+@use '@/styles/mixin.scss' as *;
+
+.TagList {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  overflow: scroll;
+  width: 100%;
+  padding: 0 8px 6px 8px;
+
+  &.loading {
+    width: fit-content;
+    overflow: none;
+
+    .loading-item {
+      width: 100px;
+    }
+  }
+
+  @include useDesktop {
+    margin-top: 24px;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 8px;
+
+    &.loading {
+      width: 100%;
+
+      .loading-item {
+        &:first-child {
+          width: 60%;
+        }
+        width: 80%;
+      }
+    }
+
+    .item {
+      transition: transform 0.3s ease;
+    }
+
+    .selected {
+      transform: translateX(-8px);
+    }
+  }
+}

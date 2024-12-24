@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import Header from '@/layouts/Header';
 import Footer from '@/layouts/Footer';
 import { Darkmode, DARKMODE_COOKIE } from '@/constants/cookie.constant';
+import { ApolloNextProvider } from '@/libs/apollo/apollo.client';
 
 import styles from './layout.module.scss';
 
@@ -29,11 +30,13 @@ export default async function RootLayout({
   return (
     <html lang="ko" data-theme={darkmode}>
       <body>
-        <div id="next-section" className={cx('next-root')}>
-          <Header darkmodeCookie={darkmode} />
-          <main className={cx('next-content')}>{children}</main>
-          <Footer />
-        </div>
+        <ApolloNextProvider cookie={cookieStore.toString()}>
+          <div id="next-section" className={cx('next-root')}>
+            <Header darkmodeCookie={darkmode} />
+            <main className={cx('next-content')}>{children}</main>
+            <Footer />
+          </div>
+        </ApolloNextProvider>
       </body>
     </html>
   );

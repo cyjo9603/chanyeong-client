@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 import path from 'path';
 
-const isDevelopment = process.env.NODE_ENV === 'production';
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const nextConfig: NextConfig = {
   distDir: 'dist',
@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
             source: '/graphql',
             destination: 'http://localhost:4011/graphql',
           },
-        ].filter((v) => v);
+        ];
       }
     : undefined,
 };

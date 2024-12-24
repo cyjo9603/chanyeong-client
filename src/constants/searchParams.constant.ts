@@ -5,3 +5,5 @@ export enum TabKey {
   DEVELOPMENT = 'development',
   DIARY = 'diary',
 }
+
+export const BLOG_TAG_SELECTED_KEY = 'selectedTag';

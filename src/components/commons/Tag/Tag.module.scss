@@ -1,0 +1,27 @@
+@use '@/styles/mixin.scss' as *;
+
+.Tag {
+  padding: 6px 12px;
+  border-radius: 100px;
+  box-sizing: border-box;
+  border: 0.5px solid rgba(var(--color-primary-rgb), 0.5);
+  box-shadow: 0 1px 1px 0 rgba(var(--color-primary-rgb), 0.2);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-primary-font);
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+
+  &.selected {
+    background-color: var(--color-primary-font);
+    color: var(--color-background);
+  }
+
+  .count {
+    margin-left: 6px;
+  }
+
+  &.loading {
+    @include useSkeleton;
+  }
+}

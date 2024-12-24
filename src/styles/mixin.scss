@@ -5,3 +5,26 @@
     @content;
   }
 }
+
+@mixin useSkeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-skeleton-rgb), 0.06) 25%,
+    rgba(var(--color-skeleton-rgb), 0.15) 37%,
+    rgba(var(--color-skeleton-rgb), 0.06) 63%
+  );
+  background-size: 400% 100%;
+  border: none;
+  box-shadow: none;
+  animation: skeleton-loading 1.4s infinite ease;
+
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0 50%;
+    }
+  }
+}

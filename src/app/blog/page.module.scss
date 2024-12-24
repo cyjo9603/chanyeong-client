@@ -2,10 +2,49 @@
 @use '@/styles/mixin.scss' as *;
 
 .BlogPage {
-  width: $inner-width;
   padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .side {
+    .side-title {
+      display: none;
+    }
+
+    .side-list {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+  }
 
   @include useDesktop {
+    width: $inner-width;
+    flex-direction: row;
     padding: 0;
+
+    .main {
+      flex: 1;
+    }
+
+    .side {
+      width: 192px;
+      padding-left: 8px;
+
+      .side-title {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-bottom: 2px;
+        height: 30px;
+        font-size: 14px;
+      }
+
+      .side-list {
+        margin-top: 24px;
+        flex-direction: column;
+      }
+    }
   }
 }

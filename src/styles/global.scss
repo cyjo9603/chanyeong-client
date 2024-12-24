@@ -1,4 +1,5 @@
 @use '@/styles/variables.scss' as *;
+@use '@/styles/mixin.scss' as *;
 
 :root {
   --color-background: #{$light-background-color};
@@ -7,6 +8,7 @@
   --color-darkmode-btn: #{$light-darkmode-btn-color};
   --color-footer-background: #{$light-footer-background-color};
   --color-footer-font: #{$light-footer-font-color};
+  --color-skeleton-rgb: #{$light-skeleton-rgb};
 }
 
 [data-theme='dark'] {
@@ -16,10 +18,28 @@
   --color-darkmode-btn: #{$dark-darkmode-btn-color};
   --color-footer-background: #{$dark-footer-background-color};
   --color-footer-font: #{$dark-footer-font-color};
+  --color-skeleton-rgb: #{$dark-skeleton-rgb};
 }
 
 body {
   color: var(--color-primary-font);
   background-color: var(--color-background);
   transition: background-color 0.3s ease, color 0.3s ease, fill 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary-font);
+}
+
+@include useDesktop {
+  ::-webkit-scrollbar {
+    width: 6px;
+    background: var(--color-background);
+  }
 }
