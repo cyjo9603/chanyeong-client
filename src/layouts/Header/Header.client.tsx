@@ -3,11 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCookies } from 'react-cookie';
 import classNames from 'classnames/bind';
 
-import { DARKMODE_COOKIE, Darkmode } from '@/constants/cookie.constant';
+import { Darkmode } from '@/constants/cookie.constant';
 import { LogoIcon, LogoTitleIcon, GithubIcon, DarkmodeIcon, LightmodeIcon } from '@/assets';
+import { useDarkmode } from '@/hooks/useDarkmode';
 
 import styles from './Header.module.scss';
 
@@ -21,16 +21,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
   const pathname = usePathname();
-  const [cookies, setCookies] = useCookies([DARKMODE_COOKIE]);
-
-  const isDarkmode = (cookies[DARKMODE_COOKIE] || darkmodeCookie) === Darkmode.DARK;
-
-  const handleDarkmodeClick = () => {
-    const darkmode = isDarkmode ? Darkmode.LIGHT : Darkmode.DARK;
-
-    setCookies(DARKMODE_COOKIE, darkmode);
-    document.documentElement.setAttribute('data-theme', darkmode);
-  };
+  const [isDarkmode, changeDarkmode] = useDarkmode({ darkmodeCookie });
 
   return (
     <header className={cx('Header', isDarkmode && 'bottom-line')}>
@@ -53,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
             <GithubIcon />
           </a>
           <div className={cx('division')} />
-          <button onClick={handleDarkmodeClick} className={cx('vertical-center', 'darkmode', 'icon')}>
+          <button onClick={changeDarkmode} className={cx('vertical-center', 'darkmode', 'icon')}>
             {isDarkmode ? <LightmodeIcon /> : <DarkmodeIcon />}
           </button>
         </div>
