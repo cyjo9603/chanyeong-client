@@ -3,11 +3,18 @@ $light-background-color: #ffffff;
 $light-primary-rgb-color: 35, 55, 77;
 $light-primary-font-color: #23374d;
 $light-darkmode-btn-color: #ffdf00;
+$light-footer-background-color: #23374d;
+$light-footer-font-color: #ffffff;
 
 $dark-background-color: #18181b;
 $dark-primary-rgb-color: 255, 255, 255;
 $dark-primary-font-color: #ffffff;
 $dark-darkmode-btn-color: #ffdf00;
+$dark-footer-background-color: #27272a;
+$dark-footer-font-color: #ffffff;
 
 // device
 $breackpoint-desktop: 1024px;
+
+// layout
+$inner-width: 1024px;

@@ -8,12 +8,11 @@
   box-shadow: 0px 4px 5px 0px rgba(var(--color-primary-rgb), 0.1);
 
   &.bottom-line {
-    box-shadow: none;
-    border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.1);
+    box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.1);
   }
 
   .inner {
-    width: 1024px;
+    width: $inner-width;
     height: 100%;
     display: flex;
     justify-content: space-between;

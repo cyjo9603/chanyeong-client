@@ -1,0 +1,48 @@
+@use '@/styles/variables.scss' as *;
+@use '@/styles/mixin.scss' as *;
+
+.Footer {
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-footer-background);
+  padding: 16px 0;
+
+  &.top-line {
+    box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.1);
+  }
+
+  .inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $inner-width;
+    font-size: 12px;
+    font-weight: lighter;
+    color: var(--color-footer-font);
+    opacity: 0.8;
+    padding: 0 8px;
+
+    .icon {
+      scale: 0.6;
+
+      path {
+        fill: var(--color-footer-font);
+      }
+    }
+
+    .copyright {
+      transform: translateY(1px);
+    }
+
+    @include useDesktop {
+      padding: 0;
+      justify-content: flex-start;
+      font-size: 14px;
+
+      .icon {
+        scale: 0.8;
+        margin-right: 8px;
+      }
+    }
+  }
+}
