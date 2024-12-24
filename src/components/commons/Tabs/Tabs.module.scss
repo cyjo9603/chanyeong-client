@@ -1,0 +1,17 @@
+.Tabs {
+  display: flex;
+  gap: 4px;
+
+  .selected {
+    border-bottom: 2px solid var(--color-primary-font);
+
+    .item-button {
+      font-weight: bold;
+    }
+  }
+
+  .item-button {
+    padding: 8px;
+    color: var(--color-primary-font);
+  }
+}

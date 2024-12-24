@@ -1,0 +1,11 @@
+@use '@/styles/variables.scss' as *;
+@use '@/styles/mixin.scss' as *;
+
+.BlogPage {
+  width: $inner-width;
+  padding: 0 8px;
+
+  @include useDesktop {
+    padding: 0;
+  }
+}

@@ -5,6 +5,9 @@
 
   .next-content {
     flex: 1;
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
   }
 
   & > footer {
