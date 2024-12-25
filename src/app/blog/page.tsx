@@ -41,16 +41,16 @@ const BlogPage = () => {
 
   return (
     <div className={cx('BlogPage')}>
-      <div className={cx('main')}>
-        <div>
-          <Tabs tabs={tabs} onClick={handleTabClick} selectedTabKey={selectedTabKey} />
-        </div>
-        <section></section>
-      </div>
       <aside className={cx('side')}>
         <div className={cx('side-title')}>Tags</div>
         <TagList seletedTag={selectedTagKey} onClick={handleTagClick} />
       </aside>
+      <div className={cx('main')}>
+        <div>
+          <Tabs tabs={tabs} onClick={handleTabClick} selectedTabKey={selectedTabKey} />
+        </div>
+        <section className={cx('section')}></section>
+      </div>
     </div>
   );
 };

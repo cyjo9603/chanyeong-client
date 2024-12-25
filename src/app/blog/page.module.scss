@@ -2,12 +2,18 @@
 @use '@/styles/mixin.scss' as *;
 
 .BlogPage {
+  position: relative;
   padding: 0 8px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   width: 100%;
 
   .side {
+    position: absolute;
+    top: 38px;
+    width: 100%;
+
     .side-title {
       display: none;
     }
@@ -19,16 +25,29 @@
     }
   }
 
+  .main {
+    height: 100%;
+  }
+
+  .section {
+    margin-top: 72px;
+  }
+
   @include useDesktop {
     width: $inner-width;
-    flex-direction: row;
+    flex-direction: row-reverse;
     padding: 0;
 
     .main {
       flex: 1;
     }
 
+    .section {
+      margin-top: 24px;
+    }
+
     .side {
+      position: static;
       width: 192px;
       padding-left: 8px;
 
