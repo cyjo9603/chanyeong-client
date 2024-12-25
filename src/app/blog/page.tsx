@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import { BLOG_TAB_SELECTED_KEY, BLOG_TAG_SELECTED_KEY, TabKey } from '@/constants/searchParams.constant';
 import Tabs, { Tab } from '@/components/commons/Tabs';
 import TagList from '@/components/blogs/TagList';
+import PostCardList from '@/components/blogs/PostCardList';
 import { createQueryString } from '@/utils/searchParams';
 
 import styles from './page.module.scss';
@@ -49,7 +50,9 @@ const BlogPage = () => {
         <div>
           <Tabs tabs={tabs} onClick={handleTabClick} selectedTabKey={selectedTabKey} />
         </div>
-        <section className={cx('section')}></section>
+        <section className={cx('section')}>
+          <PostCardList />
+        </section>
       </div>
     </div>
   );

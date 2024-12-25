@@ -125,6 +125,16 @@ export enum UserRole {
   Admin = 'ADMIN'
 }
 
+export type GetPostsQueryVariables = Exact<{
+  filter?: InputMaybe<Array<InputFilter> | InputFilter>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputSort> | InputSort>;
+}>;
+
+
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNext: boolean }, nodes?: Array<{ __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, titleImage?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null }> | null } };
+
 export type GetPostTagCountsQueryVariables = Exact<{ [key: string]: never; }>;
 
 

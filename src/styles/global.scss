@@ -33,6 +33,10 @@ body {
   background: var(--color-background);
 }
 
+::-webkit-scrollbar-corner {
+  background: var(--color-background);
+}
+
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-primary-font);
 }
