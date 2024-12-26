@@ -1,12 +1,16 @@
 'use client';
 
 import React from 'react';
+import { gql, useMutation } from '@apollo/client';
+import { useSetAtom } from 'jotai';
 import classNames from 'classnames/bind';
 
 import ModalContainer from '@/components/modals/ModalContainer';
-import Input from '@/components/commons/Input';
-import Button, { ButtonType } from '@/components/commons/Button';
 import { LogoIcon, LogoTitleIcon } from '@/assets';
+import { LoginMutation, LoginMutationVariables } from '@/types/apollo';
+import { userAtom } from '@/atoms/user.atom';
+
+import LoginForm, { LoginFormValues } from './LoginForm.client';
 
 import styles from './LoginModal.module.scss';
 
@@ -18,6 +22,24 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+  const setUser = useSetAtom(userAtom);
+
+  const [loginMutation] = useMutation<LoginMutation, LoginMutationVariables>(localMutation, {
+    onCompleted: ({ login }) => {
+      if (login.userId) {
+        setUser(login);
+
+        onClose();
+        return;
+      }
+    },
+    fetchPolicy: 'no-cache',
+  });
+
+  const handleSubmit = (values: LoginFormValues) => {
+    loginMutation({ variables: values });
+  };
+
   return (
     <ModalContainer isOpen={isOpen}>
       <div className={cx('LoginModal')}>
@@ -25,17 +47,22 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
           <LogoIcon />
           <LogoTitleIcon className={cx('logo-title')} />
         </header>
-        <form className={cx('form')}>
-          <Input label="ID" className={cx('id')} />
-          <Input label="Password" className={cx('pw')} />
-        </form>
-        <div className={cx('button-wrapper')}>
-          <Button type={ButtonType.PRIMARY}>Login</Button>
-          <Button onClick={onClose}>Close</Button>
-        </div>
+        <LoginForm onSubmit={handleSubmit} onClose={onClose} />
       </div>
     </ModalContainer>
   );
 };
+
+const localMutation = gql`
+  mutation Login($userId: String!, $password: String!) {
+    login(userId: $userId, password: $password) {
+      _id
+      role
+      firstName
+      lastName
+      userId
+    }
+  }
+`;
 
 export default LoginModal;

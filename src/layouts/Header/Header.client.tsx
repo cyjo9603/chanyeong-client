@@ -4,11 +4,15 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames/bind';
+import { useAtom } from 'jotai';
+import { useMutation, gql } from '@apollo/client';
 
 import { Darkmode } from '@/constants/cookie.constant';
 import { LogoIcon, LogoTitleIcon, GithubIcon, DarkmodeIcon, LightmodeIcon } from '@/assets';
 import { useDarkmode } from '@/hooks/useDarkmode';
 import LoginModal from '@/components/modals/LoginModal';
+import { userAtom } from '@/atoms/user.atom';
+import { LogoutMutation } from '@/types/apollo';
 
 import styles from './Header.module.scss';
 
@@ -25,12 +29,27 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
   const [isDarkmode, changeDarkmode] = useDarkmode({ darkmodeCookie });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [user, setUser] = useAtom(userAtom);
+
+  const [logoutMutation] = useMutation<LogoutMutation>(localMutation, {
+    onCompleted: ({ logout }) => {
+      if (logout._id) {
+        setUser(null);
+      }
+    },
+    fetchPolicy: 'no-cache',
+  });
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleLogout = () => {
+    logoutMutation();
   };
 
   return (
@@ -50,9 +69,15 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
           </nav>
         </div>
         <div className={cx('sub')}>
-          <button className={cx('login')} onClick={handleOpenModal}>
-            Login
-          </button>
+          {user ? (
+            <button className={cx('login')} onClick={handleLogout}>
+              Logout
+            </button>
+          ) : (
+            <button className={cx('login')} onClick={handleOpenModal}>
+              Login
+            </button>
+          )}
           <div className={cx('division')} />
           <a href={process.env.NEXT_PUBLIC_CY_GITHUB_URL} className={cx('vertical-center', 'icon')}>
             <GithubIcon />
@@ -67,5 +92,13 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
     </header>
   );
 };
+
+const localMutation = gql`
+  mutation Logout {
+    logout {
+      _id
+    }
+  }
+`;
 
 export default Header;

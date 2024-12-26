@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import classNames from 'classnames/bind';
+import { Provider as JotaiProvider } from 'jotai';
 
 import Header from '@/layouts/Header';
 import Footer from '@/layouts/Footer';
+import Initializer from '@/components/Initializer/Initializer.server';
 import { Darkmode, DARKMODE_COOKIE } from '@/constants/cookie.constant';
 import { ApolloNextProvider } from '@/libs/apollo/apollo.client';
 
@@ -31,11 +33,15 @@ export default async function RootLayout({
     <html lang="ko" data-theme={darkmode}>
       <body>
         <ApolloNextProvider cookie={cookieStore.toString()}>
-          <div id="next-section" className={cx('next-root')}>
-            <Header darkmodeCookie={darkmode} />
-            <main className={cx('next-content')}>{children}</main>
-            <Footer />
-          </div>
+          <JotaiProvider>
+            <Initializer>
+              <div id="next-section" className={cx('next-root')}>
+                <Header darkmodeCookie={darkmode} />
+                <main className={cx('next-content')}>{children}</main>
+                <Footer />
+              </div>
+            </Initializer>
+          </JotaiProvider>
         </ApolloNextProvider>
         <div id="next-portal"></div>
       </body>

@@ -15,4 +15,11 @@
     background: linear-gradient(135deg, var(--color-primary-font), rgba(var(--color-primary-rgb), 0.9));
     color: var(--color-background);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: var(--color-disabled);
+    color: var(--color-primary-font);
+    opacity: 0.5;
+  }
 }

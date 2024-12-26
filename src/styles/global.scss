@@ -9,6 +9,7 @@
   --color-footer-background: #{$light-footer-background-color};
   --color-footer-font: #{$light-footer-font-color};
   --color-skeleton-rgb: #{$light-skeleton-rgb};
+  --color-disabled: #{$light-disabled-color};
 }
 
 [data-theme='dark'] {
@@ -19,6 +20,7 @@
   --color-footer-background: #{$dark-footer-background-color};
   --color-footer-font: #{$dark-footer-font-color};
   --color-skeleton-rgb: #{$dark-skeleton-rgb};
+  --color-disabled: #{$dark-disabled-color};
 }
 
 body {

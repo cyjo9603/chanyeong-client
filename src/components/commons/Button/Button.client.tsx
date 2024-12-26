@@ -14,14 +14,23 @@ export enum ButtonType {
 
 interface ButtonProps {
   type?: ButtonType;
+  htmlType?: 'button' | 'submit';
+  disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ type = ButtonType.DEFAULT, onClick, className, children }) => {
+const Button: React.FC<ButtonProps> = ({
+  type = ButtonType.DEFAULT,
+  disabled,
+  htmlType,
+  onClick,
+  className,
+  children,
+}) => {
   return (
-    <button onClick={onClick} className={cx('Button', type, className)}>
+    <button onClick={onClick} className={cx('Button', type, className)} type={htmlType} disabled={disabled}>
       {children}
     </button>
   );

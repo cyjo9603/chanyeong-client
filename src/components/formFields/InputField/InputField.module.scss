@@ -15,6 +15,10 @@
     line-height: 22px;
     background-color: var(--color-background);
     color: var(--color-primary-font);
+
+    &[type='password'] {
+      letter-spacing: -4px;
+    }
   }
 
   .label {

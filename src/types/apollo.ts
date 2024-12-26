@@ -125,6 +125,11 @@ export enum UserRole {
   Admin = 'ADMIN'
 }
 
+export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'UserDto', _id: any, role: UserRole, firstName: string, lastName: string, userId: string } };
+
 export type GetPostsQueryVariables = Exact<{
   filter?: InputMaybe<Array<InputFilter> | InputFilter>;
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -139,3 +144,16 @@ export type GetPostTagCountsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetPostTagCountsQuery = { __typename?: 'Query', postTagCounts: Array<{ __typename?: 'PostTag', count: number, name: string }> };
+
+export type LoginMutationVariables = Exact<{
+  userId: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserDto', _id: any, role: UserRole, firstName: string, lastName: string, userId: string } };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'UserDto', _id: any } };
