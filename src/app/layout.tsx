@@ -37,6 +37,7 @@ export default async function RootLayout({
             <Footer />
           </div>
         </ApolloNextProvider>
+        <div id="next-portal"></div>
       </body>
     </html>
   );

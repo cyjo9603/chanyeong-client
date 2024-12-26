@@ -1,0 +1,45 @@
+.LoginModal {
+  width: 300px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    scale: 1.2;
+
+    .logo-title {
+      margin-left: 6.16px;
+    }
+
+    path {
+      fill: var(--color-primary-font);
+    }
+  }
+
+  .form {
+    margin-bottom: 20px;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .id {
+    border-radius: 8px 8px 0 0;
+
+    &::after {
+      border-radius: 8px 8px 0 0;
+    }
+  }
+  .pw {
+    border-radius: 0 0 8px 8px;
+    border-top: none;
+
+    &::after {
+      border-radius: 0 0 8px 8px;
+    }
+  }
+}

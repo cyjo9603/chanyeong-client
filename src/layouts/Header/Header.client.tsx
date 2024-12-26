@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames/bind';
@@ -8,6 +8,7 @@ import classNames from 'classnames/bind';
 import { Darkmode } from '@/constants/cookie.constant';
 import { LogoIcon, LogoTitleIcon, GithubIcon, DarkmodeIcon, LightmodeIcon } from '@/assets';
 import { useDarkmode } from '@/hooks/useDarkmode';
+import LoginModal from '@/components/modals/LoginModal';
 
 import styles from './Header.module.scss';
 
@@ -22,6 +23,15 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
   const pathname = usePathname();
   const [isDarkmode, changeDarkmode] = useDarkmode({ darkmodeCookie });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <header className={cx('Header', isDarkmode && 'bottom-line')}>
@@ -40,6 +50,10 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
           </nav>
         </div>
         <div className={cx('sub')}>
+          <button className={cx('login')} onClick={handleOpenModal}>
+            Login
+          </button>
+          <div className={cx('division')} />
           <a href={process.env.NEXT_PUBLIC_CY_GITHUB_URL} className={cx('vertical-center', 'icon')}>
             <GithubIcon />
           </a>
@@ -49,6 +63,7 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
           </button>
         </div>
       </div>
+      <LoginModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </header>
   );
 };
