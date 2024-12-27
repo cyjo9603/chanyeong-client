@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import ServiceForm from '@/components/forms/ServiceForm';
 import InputField from '@/components/formFields/InputField';
 import RadioField, { RadioGroup } from '@/components/formFields/RadioField';
+import ToastUIEditor from '@/components/blogs/ToastUIEditor';
 
 import { PostCategory } from '@/types/apollo';
 
@@ -33,6 +34,7 @@ const PostWriteForm: React.FC<PostWriteFormProps> = ({ onSubmit }) => {
         <RadioField name="category" value={PostCategory.Diary} displayText="Diary" />
       </RadioGroup>
       <InputField name="title" placeholder="제목" className={cx('title-field')} required />
+      <ToastUIEditor />
     </ServiceForm>
   );
 };

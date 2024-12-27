@@ -5,10 +5,10 @@ import { useCookies } from 'react-cookie';
 import { DARKMODE_COOKIE, Darkmode } from '@/constants/cookie.constant';
 
 interface UseDarkmodeOptions {
-  darkmodeCookie: Darkmode;
+  darkmodeCookie?: Darkmode;
 }
 
-export const useDarkmode = ({ darkmodeCookie }: UseDarkmodeOptions) => {
+export const useDarkmode = ({ darkmodeCookie }: UseDarkmodeOptions = {}) => {
   const [cookies, setCookies] = useCookies([DARKMODE_COOKIE]);
 
   const isDarkmode = (cookies[DARKMODE_COOKIE] || darkmodeCookie) === Darkmode.DARK;
