@@ -1,0 +1,25 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixin.scss' as *;
+
+.FloatButton {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-primary-font);
+  box-shadow: 0 6px 16px 0 rgba(var(--color-primary-rgb), 0.08), 0 3px 6px -4px rgba(var(--color-primary-rgb), 0.12),
+    0 9px 28px 8px rgba(var(--color-primary-rgb), 0.05);
+  bottom: 10%;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  path {
+    fill: var(--color-background);
+  }
+
+  @include useDesktop {
+    right: calc(((100vw - #{$inner-width}) / 2) + 20px);
+  }
+}
