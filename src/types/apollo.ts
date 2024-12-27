@@ -43,6 +43,7 @@ export type InputSort = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  _refresh: RefreshDto;
   login: UserDto;
   logout: UserDto;
   refresh: UserDto;
@@ -107,6 +108,12 @@ export type QueryPostsArgs = {
   sort?: InputMaybe<Array<InputSort>>;
 };
 
+export type RefreshDto = {
+  __typename?: 'RefreshDto';
+  accessToken: Scalars['String']['output'];
+  refreshToken: Scalars['String']['output'];
+};
+
 export enum SortDirection {
   Asc = 'ASC',
   Desc = 'DESC'
@@ -157,3 +164,8 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'UserDto', _id: any } };
+
+export type ServerRefreshMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ServerRefreshMutation = { __typename?: 'Mutation', _refresh: { __typename?: 'RefreshDto', accessToken: string, refreshToken: string } };
