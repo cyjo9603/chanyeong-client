@@ -37,7 +37,7 @@ const localQuery = gql`
         category
         title
         content
-        titleImage
+        thumbnail
         tags
         createdAt
         updatedAt

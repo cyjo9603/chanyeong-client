@@ -1,0 +1,46 @@
+.RadioGroup {
+  .RadioField:first-child {
+    border-start-start-radius: 6px;
+    border-end-start-radius: 6px;
+  }
+  .RadioField:last-child {
+    border-start-end-radius: 6px;
+    border-end-end-radius: 6px;
+  }
+  .RadioField:not(:first-child) {
+    border-left: none;
+  }
+}
+
+.RadioField {
+  position: relative;
+  display: inline-block;
+  height: 32px;
+  margin: 0;
+  padding-inline: 15px;
+  padding-block: 2px;
+  color: var(--color-primary-font);
+  font-size: 14px;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &[data-checked='true'] {
+    background-color: var(--color-primary-font);
+    color: var(--color-background);
+  }
+
+  .input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .text {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+  }
+}

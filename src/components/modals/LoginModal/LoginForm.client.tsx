@@ -4,7 +4,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 
 import ServiceForm from '@/components/forms/ServiceForm';
-import InputField from '@/components/formFields/InputField';
+import InputWithLabelField from '@/components/formFields/InputWithLabelField';
 import ConditionalField from '@/components/formFields/ConditionalField';
 import Button, { ButtonType } from '@/components/commons/Button';
 
@@ -25,8 +25,8 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onClose }) => {
   return (
     <ServiceForm onSubmit={onSubmit} className={cx('LoginForm')}>
-      <InputField label="ID" className={cx('id')} name="userId" required />
-      <InputField label="Password" className={cx('pw')} type="password" name="password" required />
+      <InputWithLabelField label="ID" className={cx('id')} name="userId" required />
+      <InputWithLabelField label="Password" className={cx('pw')} type="password" name="password" required />
       <div className={cx('button-wrapper')}>
         <ConditionalField<[string, string]> targetFieldName={['userId', 'password']}>
           {([userId, password]) => (
