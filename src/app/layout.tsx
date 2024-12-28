@@ -33,6 +33,7 @@ export default async function RootLayout({
     <html lang="ko" data-theme={darkmode}>
       <head>
         <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
+        <link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" />
       </head>
       <body>
         <ApolloNextProvider cookie={cookieStore.toString()}>

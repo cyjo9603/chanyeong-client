@@ -15,7 +15,7 @@ export const useDarkmode = ({ darkmodeCookie }: UseDarkmodeOptions = {}) => {
   const darkmode = isDarkmode ? Darkmode.LIGHT : Darkmode.DARK;
 
   const changeDarkmode = () => {
-    setCookies(DARKMODE_COOKIE, darkmode);
+    setCookies(DARKMODE_COOKIE, darkmode, { path: '/' });
     document.documentElement.setAttribute('data-theme', darkmode);
   };
 
