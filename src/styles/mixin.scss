@@ -28,3 +28,16 @@
     }
   }
 }
+
+@mixin useFontWeight($weight) {
+  @if $weight == bold {
+    font-family: 'NanumSquareBold';
+    font-weight: bold;
+  } @else if $weight == extraBold {
+    font-family: 'NanumSquareExtraBold';
+    font-weight: 900;
+  } @else if $weight == lighter {
+    font-family: 'NanumSquareLight';
+    font-weight: lighter;
+  }
+}

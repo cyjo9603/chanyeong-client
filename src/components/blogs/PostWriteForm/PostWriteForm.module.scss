@@ -19,9 +19,18 @@
     width: 100%;
   }
 
+  .submit {
+    width: 100%;
+  }
+
   @include useDesktop {
     .title-field {
       font-size: 40px;
+    }
+
+    .submit {
+      align-self: flex-end;
+      width: 200px;
     }
   }
 }

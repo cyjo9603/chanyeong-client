@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import classNames from 'classnames/bind';
 import { EditorProps } from '@toast-ui/react-editor';
+import { useFormContext } from 'react-hook-form';
 
 import { useDarkmode } from '@/hooks/useDarkmode';
 import { UploadImageMutation, UploadImageMutationVariables } from '@/types/apollo';
@@ -15,9 +16,18 @@ const cx = classNames.bind(styles);
 
 const Editor = dynamic<EditorProps>(() => import('./ToastUIEditor.client'), { ssr: false });
 
-const ToastUIEditorWrapper = () => {
+interface ToastUIEditorWrapperProps {
+  name: string;
+  required?: boolean;
+  onImageUpload?: (imageUrl: string) => void;
+}
+
+const ToastUIEditorWrapper: React.FC<ToastUIEditorWrapperProps> = ({ name, required, onImageUpload }) => {
   const [isDarkmode] = useDarkmode();
+  const { register, setValue } = useFormContext();
   const [uploadImageMutation] = useMutation<UploadImageMutation, UploadImageMutationVariables>(localMutation);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const editorRef = useRef<any>(null);
 
   const handleImageAdd = async (blob: File, callback: (url: string, filename: string) => void) => {
     try {
@@ -28,6 +38,7 @@ const ToastUIEditorWrapper = () => {
       });
 
       if (data?.uploadImage) {
+        onImageUpload?.(data.uploadImage);
         callback(data.uploadImage, blob.name);
       }
     } catch (error) {
@@ -35,14 +46,23 @@ const ToastUIEditorWrapper = () => {
     }
   };
 
+  const handleChange = () => {
+    if (editorRef.current) {
+      setValue(name, editorRef.current.getInstance().getMarkdown());
+    }
+  };
+
+  register(name, { required });
+
   return (
     <div className={cx('ToastUIEditor')}>
       <Editor
         height="100%"
-        previewStyle="vertical"
         initialValue=" "
         theme={isDarkmode ? 'dark' : 'light'}
         hooks={{ addImageBlobHook: handleImageAdd }}
+        onChange={handleChange}
+        ref={editorRef}
       />
     </div>
   );

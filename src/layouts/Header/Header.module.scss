@@ -47,7 +47,7 @@
         height: 100%;
 
         & [aria-selected='true'] {
-          font-weight: bold;
+          @include useFontWeight(bold);
         }
       }
     }

@@ -1,10 +1,12 @@
+@use '@/styles/mixin.scss' as *;
+
 .Button {
   width: 100%;
   padding: 14px 15px;
   border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
-  font-weight: bold;
+  @include useFontWeight(bold);
   color: var(--color-primary-font);
 
   &.default {

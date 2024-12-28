@@ -49,6 +49,7 @@ export type Mutation = {
   logout: UserDto;
   refresh: UserDto;
   uploadImage: Scalars['String']['output'];
+  writePost: Post;
 };
 
 
@@ -60,6 +61,11 @@ export type MutationLoginArgs = {
 
 export type MutationUploadImageArgs = {
   fileData: Scalars['Upload']['input'];
+};
+
+
+export type MutationWritePostArgs = {
+  writePostDto: WritePostDto;
 };
 
 export type PageInfo = {
@@ -138,6 +144,21 @@ export type UserDto = {
 export enum UserRole {
   Admin = 'ADMIN'
 }
+
+export type WritePostDto = {
+  category: PostCategory;
+  content: Scalars['String']['input'];
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+};
+
+export type WriteBlogPostMutationVariables = Exact<{
+  writePostDto: WritePostDto;
+}>;
+
+
+export type WriteBlogPostMutation = { __typename?: 'Mutation', writePost: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null } };
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 

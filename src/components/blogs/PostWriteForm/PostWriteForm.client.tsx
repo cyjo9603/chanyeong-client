@@ -1,12 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 
 import ServiceForm from '@/components/forms/ServiceForm';
 import InputField from '@/components/formFields/InputField';
 import RadioField, { RadioGroup } from '@/components/formFields/RadioField';
 import ToastUIEditor from '@/components/blogs/ToastUIEditor';
+import Button, { ButtonType } from '@/components/commons/Button';
+import MultiTagInputField from '@/components/formFields/MultiTagInputField';
+import ImagesSelectField from '@/components/formFields/ImagesSelectField';
 
 import { PostCategory } from '@/types/apollo';
 
@@ -27,6 +30,12 @@ interface PostWriteFormProps {
 }
 
 const PostWriteForm: React.FC<PostWriteFormProps> = ({ onSubmit }) => {
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+
+  const handleAddImage = (imageUrl: string) => {
+    setUploadedImages((prev) => [...prev, imageUrl]);
+  };
+
   return (
     <ServiceForm onSubmit={onSubmit} className={cx('PostWriteForm')} externalValues={{ category: PostCategory.Dev }}>
       <RadioGroup>
@@ -34,7 +43,12 @@ const PostWriteForm: React.FC<PostWriteFormProps> = ({ onSubmit }) => {
         <RadioField name="category" value={PostCategory.Diary} displayText="Diary" />
       </RadioGroup>
       <InputField name="title" placeholder="제목" className={cx('title-field')} required />
-      <ToastUIEditor />
+      <ToastUIEditor name="content" required onImageUpload={handleAddImage} />
+      <MultiTagInputField name="tags" placeholder="Tags" />
+      <ImagesSelectField name="thumbnail" images={uploadedImages} required />
+      <Button type={ButtonType.PRIMARY} htmlType="submit" className={cx('submit')}>
+        Save
+      </Button>
     </ServiceForm>
   );
 };

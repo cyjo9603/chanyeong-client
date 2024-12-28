@@ -1,3 +1,5 @@
+@use '@/styles/mixin.scss' as *;
+
 .Tabs {
   display: flex;
   gap: 4px;
@@ -6,7 +8,7 @@
     border-bottom: 2px solid var(--color-primary-font);
 
     .item-button {
-      font-weight: bold;
+      @include useFontWeight(extraBold);
     }
   }
 

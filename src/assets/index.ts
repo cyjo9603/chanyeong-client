@@ -6,3 +6,4 @@ export { default as LightmodeIcon } from './lightmode.svg';
 export { default as EyeIcon } from './eye.svg';
 export { default as FavoriteIcon } from './favorite.svg';
 export { default as WriteIcon } from './write.svg';
+export { default as MiniCloseIcon } from './mini_close.svg';

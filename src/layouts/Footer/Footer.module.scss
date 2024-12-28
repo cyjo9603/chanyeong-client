@@ -16,7 +16,7 @@
     justify-content: center;
     align-items: center;
     font-size: 12px;
-    font-weight: lighter;
+    @include useFontWeight(lighter);
     color: var(--color-footer-font);
     opacity: 0.8;
     padding: 0 8px;
