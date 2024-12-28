@@ -1,21 +1,23 @@
 'use client';
 
 import React from 'react';
-import { ApolloLink, createHttpLink } from '@apollo/client';
+import { ApolloLink } from '@apollo/client';
 import {
   ApolloNextAppProvider,
   ApolloClient,
   InMemoryCache,
   SSRMultipartLink,
 } from '@apollo/experimental-nextjs-app-support';
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 
 const isSSR = typeof window === 'undefined';
 
 export const generateApolloClient = (cookie?: string) => () => {
-  const link = createHttpLink({
+  const link = createUploadLink({
     uri: `${process.env.NEXT_PUBLIC_APP_URL}/graphql`,
     headers: {
       cookie: cookie || '',
+      'Apollo-Require-Preflight': 'true',
     },
     fetchOptions: { cache: 'no-store' },
   });

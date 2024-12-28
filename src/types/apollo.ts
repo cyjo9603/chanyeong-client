@@ -15,6 +15,7 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
   JSON: { input: any; output: any; }
   ObjectId: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
 export enum FilterOperator {
@@ -47,12 +48,18 @@ export type Mutation = {
   login: UserDto;
   logout: UserDto;
   refresh: UserDto;
+  uploadImage: Scalars['String']['output'];
 };
 
 
 export type MutationLoginArgs = {
   password: Scalars['String']['input'];
   userId: Scalars['String']['input'];
+};
+
+
+export type MutationUploadImageArgs = {
+  fileData: Scalars['Upload']['input'];
 };
 
 export type PageInfo = {
@@ -70,8 +77,8 @@ export type Post = {
   numId: Scalars['Int']['output'];
   pickedAt?: Maybe<Scalars['DateTime']['output']>;
   tags?: Maybe<Array<Scalars['String']['output']>>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
-  titleImage?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -145,12 +152,19 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNext: boolean }, nodes?: Array<{ __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, titleImage?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null }> | null } };
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNext: boolean }, nodes?: Array<{ __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null }> | null } };
 
 export type GetPostTagCountsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetPostTagCountsQuery = { __typename?: 'Query', postTagCounts: Array<{ __typename?: 'PostTag', count: number, name: string }> };
+
+export type UploadImageMutationVariables = Exact<{
+  fileData: Scalars['Upload']['input'];
+}>;
+
+
+export type UploadImageMutation = { __typename?: 'Mutation', uploadImage: string };
 
 export type LoginMutationVariables = Exact<{
   userId: Scalars['String']['input'];
