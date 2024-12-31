@@ -1,0 +1,64 @@
+@use '@/styles/variables.scss' as *;
+@use '@/styles/mixin.scss' as *;
+
+.BlogPostPage {
+  width: 100%;
+  padding: 0 8px;
+  overflow-x: auto;
+
+  .tag-container {
+    width: 100%;
+    margin: 4px 0 16px 0;
+    display: flex;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: 24px;
+    line-height: 32px;
+    margin: 0;
+    @include useFontWeight('extraBold');
+  }
+
+  .info {
+    margin-top: 8px;
+    font-size: 12px;
+    display: flex;
+    gap: 16px;
+    color: (var(--color-primary-font));
+
+    .name {
+      text-transform: capitalize;
+      @include useFontWeight('bold');
+    }
+
+    .date {
+      color: rgba(var(--color-primary-rgb, 0.8));
+    }
+  }
+
+  .section {
+    display: flex;
+  }
+
+  .toc {
+    display: none;
+  }
+
+  @include useDesktop {
+    width: $inner-width;
+
+    .title {
+      font-size: 32px;
+      line-height: 42px;
+    }
+
+    .content {
+      width: 800px;
+    }
+
+    .toc {
+      display: block;
+    }
+  }
+}

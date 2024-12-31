@@ -12,6 +12,7 @@ import 'prismjs/components/prism-tsx.js';
 import 'prismjs/components/prism-typescript.js';
 import 'prismjs/components/prism-json.js';
 import 'prismjs/components/prism-bash.js';
+import 'prismjs/components/prism-css.js';
 
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';

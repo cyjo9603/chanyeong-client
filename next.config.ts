@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  images: {
+    remotePatterns: [{ hostname: 'chanyeong-assets.kr.object.ncloudstorage.com' }],
+  },
   // TODO: 추후 다른 기능 생기면 제거
   async redirects() {
     return [{ source: '/', destination: '/blog', permanent: true }];

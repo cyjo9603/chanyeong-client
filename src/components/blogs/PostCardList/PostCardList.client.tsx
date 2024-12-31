@@ -4,6 +4,7 @@ import React from 'react';
 import { gql, useSuspenseQuery } from '@apollo/client';
 import classNames from 'classnames/bind';
 
+import { suspenseWrapperHoc } from '@/hocs/suspenseWrapper';
 import { GetPostsQuery, GetPostsQueryVariables } from '@/types/apollo';
 import PostCard from '@/components/blogs/PostCard';
 
@@ -47,4 +48,4 @@ const localQuery = gql`
   }
 `;
 
-export default PostCardList;
+export default suspenseWrapperHoc(PostCardList, <>loading...</>);

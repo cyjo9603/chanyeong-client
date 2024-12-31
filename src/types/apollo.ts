@@ -86,6 +86,7 @@ export type Post = {
   thumbnail?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  user: UserDto;
 };
 
 export enum PostCategory {
@@ -109,8 +110,14 @@ export type PostTag = {
 export type Query = {
   __typename?: 'Query';
   me: UserDto;
+  post: Post;
   postTagCounts: Array<PostTag>;
   posts: PostConnection;
+};
+
+
+export type QueryPostArgs = {
+  id: Scalars['ObjectId']['input'];
 };
 
 
@@ -152,6 +159,13 @@ export type WritePostDto = {
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   title: Scalars['String']['input'];
 };
+
+export type GetPostQueryVariables = Exact<{
+  id: Scalars['ObjectId']['input'];
+}>;
+
+
+export type GetPostQuery = { __typename?: 'Query', post: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null, user: { __typename?: 'UserDto', _id: any, firstName: string, lastName: string, userId: string } } };
 
 export type WriteBlogPostMutationVariables = Exact<{
   writePostDto: WritePostDto;
