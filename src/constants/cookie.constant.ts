@@ -7,3 +7,5 @@ export enum Darkmode {
 
 export const A_TOKEN = '_cyat';
 export const R_TOKEN = '_cyrt';
+
+export const USER_COOKIE = '_cyid';

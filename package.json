@@ -22,6 +22,7 @@
     "editor": "link:@toast-ui/editor",
     "graphql": "^16.10.0",
     "jotai": "2.8.0",
+    "nanoid": "^5.0.9",
     "next": "15.1.0",
     "prismjs": "^1.29.0",
     "react": "^19.0.0",
