@@ -1,0 +1,28 @@
+@use '@/styles/mixin.scss' as *;
+
+.Toc {
+  width: 100%;
+  margin-top: 18px;
+  box-sizing: border-box;
+  position: -webkit-sticky;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 80px;
+  z-index: 1;
+  height: fit-content;
+  padding-left: 18px;
+  margin-left: 18px;
+  border-left: 1px solid rgba(var(--color-primary-rgb), 0.5);
+
+  .content {
+    cursor: pointer;
+    font-size: 12px;
+    margin: 6px 0;
+    transition: color 0.5s;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @include useFontWeight('bold');
+  }
+}

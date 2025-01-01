@@ -6,10 +6,10 @@ import classNames from 'classnames/bind';
 import { GetPostQuery, GetPostQueryVariables } from '@/types/apollo';
 import { getClient } from '@/libs/apollo/apollo.server';
 import Tag from '@/components/commons/Tag';
-
+import { BLOG_CONTENT_ELEMENT_ID } from '@/constants/element.constant';
 import { dateFommater } from '@/utils/date';
-
 import MarkdownViewer from '@/components/blogs/MarkdownViewer';
+import Toc from '@/components/blogs/Toc';
 
 import styles from './page.module.scss';
 
@@ -39,23 +39,25 @@ const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {
   return (
     <div className={cx('BlogPostPage')}>
       <section className={cx('section')}>
-        <div className={cx('content')}>
-          <div className={cx('tag-container')}>
-            {post.tags?.map((tag) => (
-              <Tag key={tag} name={tag} />
-            ))}
-          </div>
-          <h1 className={cx('title')}>{post.title}</h1>
-          <div className={cx('info')}>
-            <span className={cx('name')}>
-              {post.user.firstName} {post.user.lastName}
-            </span>
-            <span className={cx('date')}>{dateFommater(post.createdAt)}</span>
-          </div>
+        <div className={cx('tag-container')}>
+          {post.tags?.map((tag) => (
+            <Tag key={tag} name={tag} />
+          ))}
+        </div>
+        <h1 className={cx('title')}>{post.title}</h1>
+        <div className={cx('info')}>
+          <span className={cx('name')}>
+            {post.user.firstName} {post.user.lastName}
+          </span>
+          <span className={cx('date')}>{dateFommater(post.createdAt)}</span>
+        </div>
+        <div id={BLOG_CONTENT_ELEMENT_ID}>
           <MarkdownViewer content={post.content} />
         </div>
-        <div className={cx('toc')}></div>
       </section>
+      <aside className={cx('toc')}>
+        <Toc />
+      </aside>
     </div>
   );
 };
