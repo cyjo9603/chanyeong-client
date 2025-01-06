@@ -24,10 +24,14 @@ interface ToastUIEditorWrapperProps {
 
 const ToastUIEditorWrapper: React.FC<ToastUIEditorWrapperProps> = ({ name, required, onImageUpload }) => {
   const [isDarkmode] = useDarkmode();
-  const { register, setValue } = useFormContext();
+  const { register, setValue, getValues } = useFormContext();
   const [uploadImageMutation] = useMutation<UploadImageMutation, UploadImageMutationVariables>(localMutation);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const editorRef = useRef<any>(null);
+
+  const defaultValue = getValues()?.[name];
+
+  console.log(getValues());
 
   const handleImageAdd = async (blob: File, callback: (url: string, filename: string) => void) => {
     try {
@@ -58,7 +62,7 @@ const ToastUIEditorWrapper: React.FC<ToastUIEditorWrapperProps> = ({ name, requi
     <div className={cx('ToastUIEditor')}>
       <Editor
         height="100%"
-        initialValue=" "
+        initialValue={defaultValue || ' '}
         theme={isDarkmode ? 'dark' : 'light'}
         hooks={{ addImageBlobHook: handleImageAdd }}
         onChange={handleChange}

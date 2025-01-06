@@ -44,7 +44,7 @@ const MultiTagInputField: React.FC<MultiTagInputFieldProps> = ({ name, required,
     setValue(name, updatedTags);
   };
 
-  register(name, { value: [], required });
+  register(name, { value: tags || [], required });
 
   return (
     <div className={cx('MultiTagInputField')}>

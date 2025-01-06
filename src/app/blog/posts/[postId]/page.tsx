@@ -1,6 +1,5 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { gql } from '@apollo/client';
 import classNames from 'classnames/bind';
 
 import { GetPostQuery, GetPostQueryVariables } from '@/types/apollo';
@@ -12,6 +11,8 @@ import MarkdownViewer from '@/components/blogs/MarkdownViewer';
 import Toc from '@/components/blogs/Toc';
 import PostViewCountIncreaser from '@/components/blogs/PostViewCountIncreaser';
 import PostStatus from '@/components/blogs/PostStatus';
+import PostEditButton from '@/components/blogs/PostEditButton';
+import { getPostQuery } from '@/queries/post.query';
 
 import styles from './page.module.scss';
 
@@ -28,7 +29,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {
   const apolloClient = await getClient();
 
   const { data } = await apolloClient.query<GetPostQuery, GetPostQueryVariables>({
-    query: localQuery,
+    query: getPostQuery,
     variables: { id: postId },
   });
 
@@ -53,6 +54,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {
           </span>
           <span className={cx('date')}>{dateFommater(post.createdAt)}</span>
           <PostStatus viewCount={post.viewCount} postId={postId} />
+          <PostEditButton postId={postId} className={cx('edit')} />
         </div>
         <div id={BLOG_CONTENT_ELEMENT_ID}>
           <MarkdownViewer content={post.content} />
@@ -65,28 +67,5 @@ const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {
     </div>
   );
 };
-
-const localQuery = gql`
-  query GetPost($id: ObjectId!) {
-    post(id: $id) {
-      _id
-      category
-      title
-      content
-      thumbnail
-      tags
-      viewCount
-      createdAt
-      updatedAt
-      deletedAt
-      user {
-        _id
-        firstName
-        lastName
-        userId
-      }
-    }
-  }
-`;
 
 export default BlogPostPage;

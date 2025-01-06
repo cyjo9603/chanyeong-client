@@ -18,6 +18,15 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
+export type EditPostDto = {
+  _id: Scalars['ObjectId']['input'];
+  category: PostCategory;
+  content: Scalars['String']['input'];
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+};
+
 export enum FilterOperator {
   Eq = 'EQ',
   Exists = 'EXISTS',
@@ -45,12 +54,18 @@ export type InputSort = {
 export type Mutation = {
   __typename?: 'Mutation';
   _refresh: RefreshDto;
+  editPost: Post;
   increasePostViewCount?: Maybe<Post>;
   login: UserDto;
   logout: UserDto;
   refresh: UserDto;
   uploadImage: Scalars['String']['output'];
   writePost: Post;
+};
+
+
+export type MutationEditPostArgs = {
+  editPostDto: EditPostDto;
 };
 
 
@@ -167,19 +182,19 @@ export type WritePostDto = {
   title: Scalars['String']['input'];
 };
 
-export type GetPostQueryVariables = Exact<{
-  id: Scalars['ObjectId']['input'];
-}>;
-
-
-export type GetPostQuery = { __typename?: 'Query', post: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null, user: { __typename?: 'UserDto', _id: any, firstName: string, lastName: string, userId: string } } };
-
 export type WriteBlogPostMutationVariables = Exact<{
   writePostDto: WritePostDto;
 }>;
 
 
 export type WriteBlogPostMutation = { __typename?: 'Mutation', writePost: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null } };
+
+export type EditBlogPostMutationVariables = Exact<{
+  editPostDto: EditPostDto;
+}>;
+
+
+export type EditBlogPostMutation = { __typename?: 'Mutation', editPost: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null } };
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -239,3 +254,10 @@ export type ServerRefreshMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ServerRefreshMutation = { __typename?: 'Mutation', _refresh: { __typename?: 'RefreshDto', accessToken: string, refreshToken: string } };
+
+export type GetPostQueryVariables = Exact<{
+  id: Scalars['ObjectId']['input'];
+}>;
+
+
+export type GetPostQuery = { __typename?: 'Query', post: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null, user: { __typename?: 'UserDto', _id: any, firstName: string, lastName: string, userId: string } } };

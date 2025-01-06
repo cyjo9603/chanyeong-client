@@ -26,10 +26,11 @@ export interface PostWriteFormValues {
 }
 
 interface PostWriteFormProps {
+  defaultValues?: PostWriteFormValues;
   onSubmit: (values: PostWriteFormValues) => void;
 }
 
-const PostWriteForm: React.FC<PostWriteFormProps> = ({ onSubmit }) => {
+const PostWriteForm: React.FC<PostWriteFormProps> = ({ defaultValues, onSubmit }) => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   const handleAddImage = (imageUrl: string) => {
@@ -37,7 +38,11 @@ const PostWriteForm: React.FC<PostWriteFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <ServiceForm onSubmit={onSubmit} className={cx('PostWriteForm')} externalValues={{ category: PostCategory.Dev }}>
+    <ServiceForm
+      onSubmit={onSubmit}
+      className={cx('PostWriteForm')}
+      externalValues={{ category: PostCategory.Dev, ...defaultValues }}
+    >
       <RadioGroup>
         <RadioField name="category" value={PostCategory.Dev} displayText="Development" defaultValue={'development'} />
         <RadioField name="category" value={PostCategory.Diary} displayText="Diary" />
