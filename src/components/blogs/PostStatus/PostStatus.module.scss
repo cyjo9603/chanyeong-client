@@ -1,0 +1,28 @@
+.PostStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+
+    path {
+      fill: var(--color-primary-font);
+    }
+
+    .status-count {
+      margin-left: 2px;
+    }
+  }
+
+  .favorite {
+    padding: 0;
+    color: rgba(var(--color-primary-rgb), 0.8);
+
+    path {
+      opacity: 0.5;
+    }
+  }
+}

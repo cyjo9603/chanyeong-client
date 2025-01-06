@@ -40,7 +40,7 @@
   }
 
   ol {
-    margin-left: 36px;
+    margin-left: 8px;
     margin-bottom: 18px;
 
     & > li {
@@ -49,6 +49,7 @@
       &::before {
         position: absolute;
         margin-left: -24px;
+        transform: translateY(-3px);
         content: counter(li) '.';
         @include useFontWeight('bold');
       }

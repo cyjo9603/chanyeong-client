@@ -10,6 +10,8 @@ import { BLOG_CONTENT_ELEMENT_ID } from '@/constants/element.constant';
 import { dateFommater } from '@/utils/date';
 import MarkdownViewer from '@/components/blogs/MarkdownViewer';
 import Toc from '@/components/blogs/Toc';
+import PostViewCountIncreaser from '@/components/blogs/PostViewCountIncreaser';
+import PostStatus from '@/components/blogs/PostStatus';
 
 import styles from './page.module.scss';
 
@@ -50,6 +52,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {
             {post.user.firstName} {post.user.lastName}
           </span>
           <span className={cx('date')}>{dateFommater(post.createdAt)}</span>
+          <PostStatus viewCount={post.viewCount} postId={postId} />
         </div>
         <div id={BLOG_CONTENT_ELEMENT_ID}>
           <MarkdownViewer content={post.content} />
@@ -58,6 +61,7 @@ const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {
       <aside className={cx('toc')}>
         <Toc />
       </aside>
+      <PostViewCountIncreaser postId={post._id} />
     </div>
   );
 };
@@ -71,6 +75,7 @@ const localQuery = gql`
       content
       thumbnail
       tags
+      viewCount
       createdAt
       updatedAt
       deletedAt

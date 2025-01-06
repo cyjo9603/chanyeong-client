@@ -40,6 +40,7 @@ const localQuery = gql`
         content
         thumbnail
         tags
+        viewCount
         createdAt
         updatedAt
         deletedAt

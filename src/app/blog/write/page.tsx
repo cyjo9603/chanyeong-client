@@ -44,6 +44,7 @@ const localMutation = gql`
       content
       thumbnail
       tags
+      viewCount
       createdAt
       updatedAt
       deletedAt

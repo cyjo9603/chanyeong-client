@@ -45,11 +45,17 @@ export type InputSort = {
 export type Mutation = {
   __typename?: 'Mutation';
   _refresh: RefreshDto;
+  increasePostViewCount?: Maybe<Post>;
   login: UserDto;
   logout: UserDto;
   refresh: UserDto;
   uploadImage: Scalars['String']['output'];
   writePost: Post;
+};
+
+
+export type MutationIncreasePostViewCountArgs = {
+  postId: Scalars['ObjectId']['input'];
 };
 
 
@@ -87,6 +93,7 @@ export type Post = {
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   user: UserDto;
+  viewCount: Scalars['Int']['output'];
 };
 
 export enum PostCategory {
@@ -165,14 +172,14 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', post: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null, user: { __typename?: 'UserDto', _id: any, firstName: string, lastName: string, userId: string } } };
+export type GetPostQuery = { __typename?: 'Query', post: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null, user: { __typename?: 'UserDto', _id: any, firstName: string, lastName: string, userId: string } } };
 
 export type WriteBlogPostMutationVariables = Exact<{
   writePostDto: WritePostDto;
 }>;
 
 
-export type WriteBlogPostMutation = { __typename?: 'Mutation', writePost: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null } };
+export type WriteBlogPostMutation = { __typename?: 'Mutation', writePost: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null } };
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -187,7 +194,21 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNext: boolean }, nodes?: Array<{ __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, createdAt: any, updatedAt: any, deletedAt?: any | null }> | null } };
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNext: boolean }, nodes?: Array<{ __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null }> | null } };
+
+export type GetPostViewCountQueryVariables = Exact<{
+  id: Scalars['ObjectId']['input'];
+}>;
+
+
+export type GetPostViewCountQuery = { __typename?: 'Query', post: { __typename?: 'Post', _id: any, viewCount: number } };
+
+export type IncreasePostViewCountMutationVariables = Exact<{
+  postId: Scalars['ObjectId']['input'];
+}>;
+
+
+export type IncreasePostViewCountMutation = { __typename?: 'Mutation', increasePostViewCount?: { __typename?: 'Post', _id: any, viewCount: number } | null };
 
 export type GetPostTagCountsQueryVariables = Exact<{ [key: string]: never; }>;
 

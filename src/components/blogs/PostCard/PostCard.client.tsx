@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import { Post } from '@/types/apollo';
 import Tag from '@/components/commons/Tag';
 import { dateFommater } from '@/utils/date';
-import { EyeIcon, FavoriteIcon } from '@/assets';
+import PostStatus from '@/components/blogs/PostStatus';
 
 import styles from './PostCard.module.scss';
 
@@ -31,17 +31,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         </div>
         <div className={cx('info')}>
           <div className={cx('date')}>{dateFommater(post.createdAt)}</div>
-          <div className={cx('status-container')}>
-            <span className={cx('status')}>
-              <EyeIcon />
-              {/* TODO: 추후 기능 추가 */}
-              <span>10</span>
-            </span>
-            <button className={cx('status', 'favorite')}>
-              <FavoriteIcon />
-              <span>10</span>
-            </button>
-          </div>
+          <PostStatus viewCount={post.viewCount} />
         </div>
       </div>
       <div className={cx('tag-container')}>
