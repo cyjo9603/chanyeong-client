@@ -1,3 +1,5 @@
+@use '@/styles/mixin.scss' as *;
+
 .next-root {
   display: flex;
   flex-direction: column;
@@ -13,5 +15,9 @@
 
   & > footer {
     margin-top: auto;
+  }
+
+  @include useDesktop {
+    overflow-x: inherit;
   }
 }

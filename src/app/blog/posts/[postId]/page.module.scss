@@ -50,8 +50,6 @@
 
   .toc {
     display: none;
-    width: 100%;
-    height: 500px;
   }
 
   @include useDesktop {
@@ -69,6 +67,8 @@
 
     .toc {
       display: block;
+      width: 100%;
+      height: 100%;
     }
   }
 }
