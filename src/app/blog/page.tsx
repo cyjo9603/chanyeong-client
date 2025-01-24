@@ -61,7 +61,7 @@ const BlogPage = () => {
           <Tabs tabs={tabs} onClick={handleTabClick} selectedTabKey={selectedTabKey} />
         </div>
         <section className={cx('section')}>
-          <PostCardList />
+          <PostCardList category={selectedTabKey !== TabKey.ALL ? selectedTabKey : undefined} tag={selectedTagKey} />
         </section>
       </div>
       {user && (

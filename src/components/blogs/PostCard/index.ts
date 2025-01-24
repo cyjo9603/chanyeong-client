@@ -1,1 +1,1 @@
-export { default } from './PostCard.client';
+export { default, PostCardLoading } from './PostCard.client';

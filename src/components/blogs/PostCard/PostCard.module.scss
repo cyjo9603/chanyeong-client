@@ -1,7 +1,6 @@
 @use '@/styles/mixin.scss' as *;
 
 .PostCard {
-  max-width: 400px;
   width: 100%;
   box-shadow: 0 4px 16px 0 rgba(var(--color-primary-rgb), 0.1);
   cursor: pointer;
@@ -90,5 +89,29 @@
     border-top: 1px solid rgba(var(--color-primary-rgb), 0.1);
     display: flex;
     gap: 10px;
+  }
+
+  &.loading {
+    height: 393.8px;
+    box-shadow: none;
+
+    .img-container {
+      @include useSkeleton;
+    }
+
+    .content-container {
+      margin: 18px 0;
+      height: 90px;
+      @include useSkeleton;
+    }
+
+    .tag-container {
+      height: 47.8px;
+      @include useSkeleton;
+    }
+  }
+
+  @include useDesktop {
+    // width: calc(50% - 16px);
   }
 }

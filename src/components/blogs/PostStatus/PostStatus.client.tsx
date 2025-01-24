@@ -19,6 +19,7 @@ interface PostStatusProps {
 const PostStatus: React.FC<PostStatusProps> = ({ viewCount, postId }) => {
   const { data } = useQuery<GetPostViewCountQuery, GetPostViewCountQueryVariables>(localQuery, {
     variables: { id: postId },
+    fetchPolicy: 'cache-only',
   });
 
   return (

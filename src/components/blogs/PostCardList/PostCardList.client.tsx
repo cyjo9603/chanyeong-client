@@ -1,26 +1,73 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo, startTransition } from 'react';
 import { gql, useSuspenseQuery } from '@apollo/client';
+import { useIntersectionObserver } from 'usehooks-ts';
 import classNames from 'classnames/bind';
 
 import { suspenseWrapperHoc } from '@/hocs/suspenseWrapper';
-import { GetPostsQuery, GetPostsQueryVariables } from '@/types/apollo';
-import PostCard from '@/components/blogs/PostCard';
+import { GetPostsQuery, GetPostsQueryVariables, FilterOperator } from '@/types/apollo';
+import PostCard, { PostCardLoading } from '@/components/blogs/PostCard';
 
 import styles from './PostCardList.module.scss';
 
 const cx = classNames.bind(styles);
 
-const PostCardList: React.FC = () => {
-  const { data } = useSuspenseQuery<GetPostsQuery, GetPostsQueryVariables>(localQuery, {
-    variables: { limit: 10 },
+interface PostCardListProps {
+  tag?: string;
+  category?: string;
+}
+
+const PostCardList: React.FC<PostCardListProps> = ({ tag, category }) => {
+  const postFilter = useMemo(
+    () => [
+      ...(category ? [{ name: 'category', operator: FilterOperator.Eq, value: category }] : []),
+      ...(tag ? [{ name: 'tags', operator: FilterOperator.In, value: tag }] : []),
+    ],
+    [category, tag]
+  );
+
+  const { data, fetchMore } = useSuspenseQuery<GetPostsQuery, GetPostsQueryVariables>(localQuery, {
+    variables: {
+      limit: 10,
+      filter: postFilter,
+    },
   });
+
+  const handleFetchMore = () => {
+    if (data?.posts.pageInfo.hasNext) {
+      startTransition(() => {
+        fetchMore({
+          variables: { limit: 10, filter: postFilter, skip: data.posts.nodes?.length },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult.posts) {
+              return prev;
+            }
+
+            const newPostNodes = [...(prev.posts.nodes || []), ...(fetchMoreResult.posts.nodes || [])];
+
+            return { ...fetchMoreResult, posts: { ...fetchMoreResult.posts, nodes: newPostNodes } };
+          },
+        });
+      });
+    }
+  };
+
+  const { ref } = useIntersectionObserver({
+    threshold: 0.5,
+    onChange: (isIntersecting) => {
+      if (isIntersecting) {
+        handleFetchMore();
+      }
+    },
+  });
+
+  const lastPostId = data?.posts.nodes?.at(-1)?._id;
 
   return (
     <div className={cx('PostCardList')}>
       {data.posts.nodes?.map((post) => (
-        <PostCard key={post._id} post={post} />
+        <PostCard key={post._id} post={post} ref={post._id === lastPostId ? ref : undefined} />
       ))}
     </div>
   );
@@ -49,4 +96,12 @@ const localQuery = gql`
   }
 `;
 
-export default suspenseWrapperHoc(PostCardList, <>loading...</>);
+export default suspenseWrapperHoc(
+  PostCardList,
+  <div className={cx('PostCardList')}>
+    <PostCardLoading />
+    {/* <PostCardLoading />
+    <PostCardLoading />
+    <PostCardLoading /> */}
+  </div>
+);

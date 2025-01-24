@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo, forwardRef } from 'react';
 import Link from 'next/link';
+import removeMd from 'remove-markdown';
 import classNames from 'classnames/bind';
 
 import { Post } from '@/types/apollo';
@@ -13,25 +14,34 @@ import styles from './PostCard.module.scss';
 
 const cx = classNames.bind(styles);
 
+const POST_CONTENT_LIMIT = 700;
+
 interface PostCardProps {
   post: Omit<Post, 'numId' | 'user'>;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(({ post }, ref) => {
+  const postContent = useMemo(
+    () => removeMd(post.content, { useImgAltText: false }).slice(0, POST_CONTENT_LIMIT),
+    [post.content]
+  );
+
   return (
-    <Link href={`/blog/posts/${post._id}`} className={cx('PostCard')}>
-      <div className={cx('img-container')}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={post.thumbnail!} alt={post.title} className={cx('img')} />
-      </div>
+    <Link href={`/blog/posts/${post._id}`} className={cx('PostCard')} prefetch={false} ref={ref}>
+      {post.thumbnail && (
+        <div className={cx('img-container')}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={post.thumbnail!} alt={post.title} className={cx('img')} />
+        </div>
+      )}
       <div className={cx('content-container')}>
         <div className={cx('content')}>
           <div className={cx('title')}>{post.title}</div>
-          <div className={cx('description')}>{post.content}</div>
+          <div className={cx('description')}>{postContent}</div>
         </div>
         <div className={cx('info')}>
           <div className={cx('date')}>{dateFommater(post.createdAt)}</div>
-          <PostStatus viewCount={post.viewCount} />
+          <PostStatus viewCount={post.viewCount} postId={post._id} />
         </div>
       </div>
       <div className={cx('tag-container')}>
@@ -40,6 +50,18 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         ))}
       </div>
     </Link>
+  );
+});
+
+PostCard.displayName = 'PostCard';
+
+export const PostCardLoading: React.FC<{ className?: string }> = ({ className }) => {
+  return (
+    <div className={cx('PostCard', 'loading', className)}>
+      <div className={cx('img-container')}></div>
+      <div className={cx('content-container')}></div>
+      <div className={cx('tag-container')}></div>
+    </div>
   );
 };
 
