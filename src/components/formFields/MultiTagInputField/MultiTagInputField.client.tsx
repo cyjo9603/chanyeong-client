@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import classNames from 'classnames/bind';
 
@@ -21,6 +21,8 @@ const MultiTagInputField: React.FC<MultiTagInputFieldProps> = ({ name, required,
   const [text, setText] = useState('');
   const tags: string[] = useWatch({ name });
 
+  const isComposingRef = useRef(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
@@ -33,7 +35,7 @@ const MultiTagInputField: React.FC<MultiTagInputFieldProps> = ({ name, required,
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
+    if (e.code === 'Enter' && !isComposingRef.current) {
       e.preventDefault();
       addTag();
     }
@@ -68,6 +70,12 @@ const MultiTagInputField: React.FC<MultiTagInputFieldProps> = ({ name, required,
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           onBlur={addTag}
+          onCompositionStart={() => {
+            isComposingRef.current = true;
+          }}
+          onCompositionEnd={() => {
+            isComposingRef.current = false;
+          }}
         />
       </span>
     </div>
