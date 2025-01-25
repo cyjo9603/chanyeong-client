@@ -27,11 +27,12 @@ export interface PostWriteFormValues {
 
 interface PostWriteFormProps {
   defaultValues?: PostWriteFormValues;
+  defaultImages?: string[];
   onSubmit: (values: PostWriteFormValues) => void;
 }
 
-const PostWriteForm: React.FC<PostWriteFormProps> = ({ defaultValues, onSubmit }) => {
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+const PostWriteForm: React.FC<PostWriteFormProps> = ({ defaultValues, defaultImages, onSubmit }) => {
+  const [uploadedImages, setUploadedImages] = useState<string[]>(defaultImages ?? []);
 
   const handleAddImage = (imageUrl: string) => {
     setUploadedImages((prev) => [...prev, imageUrl]);

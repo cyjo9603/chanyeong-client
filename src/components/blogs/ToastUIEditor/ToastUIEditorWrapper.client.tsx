@@ -31,8 +31,6 @@ const ToastUIEditorWrapper: React.FC<ToastUIEditorWrapperProps> = ({ name, requi
 
   const defaultValue = getValues()?.[name];
 
-  console.log(getValues());
-
   const handleImageAdd = async (blob: File, callback: (url: string, filename: string) => void) => {
     try {
       const { data } = await uploadImageMutation({

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import classNames from 'classnames/bind';
@@ -15,9 +15,10 @@ import {
   EditBlogPostMutationVariables,
 } from '@/types/apollo';
 import { GetPostQuery, GetPostQueryVariables } from '@/types/apollo';
+import { getPostQuery } from '@/queries/post.query';
+import { MD_IMG_REGEX } from '@/constants/string.constant';
 
 import styles from './page.module.scss';
-import { getPostQuery } from '@/queries/post.query';
 
 const cx = classNames.bind(styles);
 
@@ -59,6 +60,10 @@ const BlogWritePage = () => {
     }
   };
 
+  const postImages = useMemo(() => {
+    return data?.post.content.match(MD_IMG_REGEX)?.map((image) => image.replace(MD_IMG_REGEX, '$1'));
+  }, [data]);
+
   return (
     <div className={cx('BlogWritePage')}>
       {(isEditPage ? data?.post : true) && (
@@ -69,6 +74,7 @@ const BlogWritePage = () => {
               ? (pick(data.post, ['title', 'category', 'thumbnail', 'content', 'tags']) as PostWriteFormValues)
               : undefined
           }
+          defaultImages={postImages}
         />
       )}
     </div>
