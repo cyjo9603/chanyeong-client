@@ -6,7 +6,7 @@ import { useIntersectionObserver } from 'usehooks-ts';
 import classNames from 'classnames/bind';
 
 import { suspenseWrapperHoc } from '@/hocs/suspenseWrapper';
-import { GetPostsQuery, GetPostsQueryVariables, FilterOperator } from '@/types/apollo';
+import { GetPostsQuery, GetPostsQueryVariables, FilterOperator, SortDirection } from '@/types/apollo';
 import PostCard, { PostCardLoading } from '@/components/blogs/PostCard';
 
 import styles from './PostCardList.module.scss';
@@ -19,11 +19,17 @@ interface PostCardListProps {
 }
 
 const PostCardList: React.FC<PostCardListProps> = ({ tag, category }) => {
-  const postFilter = useMemo(
-    () => [
-      ...(category ? [{ name: 'category', operator: FilterOperator.Eq, value: category }] : []),
-      ...(tag ? [{ name: 'tags', operator: FilterOperator.In, value: tag }] : []),
-    ],
+  const { postFilter, postSort } = useMemo(
+    () => ({
+      postFilter: [
+        ...(category ? [{ name: 'category', operator: FilterOperator.Eq, value: category }] : []),
+        ...(tag ? [{ name: 'tags', operator: FilterOperator.In, value: tag }] : []),
+      ],
+      postSort: [
+        { name: 'createdAt', direction: SortDirection.Desc },
+        { name: '_id', direction: SortDirection.Desc },
+      ],
+    }),
     [category, tag]
   );
 
@@ -31,6 +37,7 @@ const PostCardList: React.FC<PostCardListProps> = ({ tag, category }) => {
     variables: {
       limit: 10,
       filter: postFilter,
+      sort: postSort,
     },
   });
 
@@ -38,7 +45,12 @@ const PostCardList: React.FC<PostCardListProps> = ({ tag, category }) => {
     if (data?.posts.pageInfo.hasNext) {
       startTransition(() => {
         fetchMore({
-          variables: { limit: 10, filter: postFilter, skip: data.posts.nodes?.length },
+          variables: {
+            limit: 10,
+            filter: postFilter,
+            skip: data.posts.nodes?.length,
+            sort: postSort,
+          },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult.posts) {
               return prev;
