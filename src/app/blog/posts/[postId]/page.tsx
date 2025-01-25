@@ -34,7 +34,14 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     variables: { id: postId },
   });
 
-  return { title: data.post.title, description: removeMd(data.post.content, { useImgAltText: false }) };
+  return {
+    title: data.post.title,
+    description: removeMd(data.post.content, { useImgAltText: false }),
+    keywords: data.post.tags ?? undefined,
+    openGraph: {
+      images: data.post.thumbnail ?? `${process.env.NEXT_PUBLIC_CDN_URL}/static/opengraphql-image.jpg`,
+    },
+  };
 }
 
 const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {

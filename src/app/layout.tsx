@@ -17,6 +17,9 @@ import '@/styles/global.scss';
 export const metadata: Metadata = {
   title: 'CHANYEONG',
   description: '개발자 조찬영의 웹 서비스',
+  openGraph: {
+    images: `${process.env.NEXT_PUBLIC_CDN_URL}/static/opengraphql-image.jpg`,
+  },
 };
 
 const cx = classNames.bind(styles);
