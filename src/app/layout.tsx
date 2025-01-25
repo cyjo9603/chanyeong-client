@@ -34,6 +34,8 @@ export default async function RootLayout({
       <head>
         <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
         <link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" />
+        <link rel="shortcut icon" href={`${process.env.NEXT_PUBLIC_CDN_URL}/static/favicon.png`} type="image/x-icon" />
+        <link rel="icon" href={`${process.env.NEXT_PUBLIC_CDN_URL}/static/favicon.png`} type="image/x-icon" />
       </head>
       <body>
         <ApolloNextProvider cookie={cookieStore.toString()}>
