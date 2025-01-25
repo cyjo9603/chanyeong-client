@@ -6,7 +6,13 @@ const config: CodegenConfig = {
     './src/types/apollo.ts': {
       schema: 'http://localhost:4011/graphql',
       documents: ['src/**/!(*.d).{ts,tsx,gql,graphql}'],
-      plugins: ['typescript', 'typescript-operations'],
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        {
+          add: { content: '/* eslint-disable */' },
+        },
+      ],
     },
   },
 };
