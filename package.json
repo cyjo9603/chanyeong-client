@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "generate:graphql-typings": "graphql-codegen --config graphql-codegen.ts"
@@ -41,6 +42,7 @@
     "@graphql-codegen/cli": "^5.0.3",
     "@graphql-codegen/typescript": "^4.1.2",
     "@graphql-codegen/typescript-operations": "^4.4.0",
+    "@next/bundle-analyzer": "^15.1.6",
     "@svgr/webpack": "^8.1.0",
     "@types/apollo-upload-client": "^18.0.0",
     "@types/lodash-es": "^4.17.12",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import classNames from 'classnames/bind';
+import removeMd from 'remove-markdown';
 
 import { GetPostQuery, GetPostQueryVariables } from '@/types/apollo';
 import { getClient } from '@/libs/apollo/apollo.server';
@@ -22,6 +23,18 @@ interface BlogPostPageProps {
   params: Promise<{
     postId: string;
   }>;
+}
+
+export async function generateMetadata({ params }: BlogPostPageProps) {
+  const { postId } = await params;
+  const apolloClient = await getClient();
+
+  const { data } = await apolloClient.query<GetPostQuery, GetPostQueryVariables>({
+    query: getPostQuery,
+    variables: { id: postId },
+  });
+
+  return { title: data.post.title, description: removeMd(data.post.content, { useImgAltText: false }) };
 }
 
 const BlogPostPage: NextPage<BlogPostPageProps> = async ({ params }) => {

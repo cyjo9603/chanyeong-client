@@ -1,7 +1,10 @@
 import type { NextConfig } from 'next';
 import path from 'path';
+import bundleAnalyzer from '@next/bundle-analyzer';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
+
+const withBundleAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === 'true' });
 
 const nextConfig: NextConfig = {
   distDir: 'dist',
@@ -39,4 +42,4 @@ const nextConfig: NextConfig = {
     : undefined,
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);
