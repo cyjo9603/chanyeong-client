@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
           </Link>
           <nav className={cx('nav')}>
             {navs.map(({ name, path }) => (
-              <Link href={path} aria-selected={pathname === path} className={cx('vertical-center')} key={path}>
+              <Link href={path} aria-selected={pathname.startsWith(path)} className={cx('vertical-center')} key={path}>
                 {name}
               </Link>
             ))}
