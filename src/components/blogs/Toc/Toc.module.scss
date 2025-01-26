@@ -24,5 +24,21 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     @include useFontWeight('bold');
+
+    &.max-diff-1 {
+      margin-left: 8px;
+    }
+    &.max-diff-2 {
+      margin-left: 16px;
+    }
+    &.max-diff-3 {
+      margin-left: 24x;
+    }
+    &.max-diff-4 {
+      margin-left: 32px;
+    }
+    &.max-diff-5 {
+      margin-left: 40px;
+    }
   }
 }

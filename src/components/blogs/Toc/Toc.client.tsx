@@ -11,6 +11,8 @@ const cx = classNames.bind(styles);
 const Toc = () => {
   const [tocs, setTocs] = useState<{ slug: string; content: string; level: number }[]>([]);
 
+  const maxTocLevel = Math.min(...tocs.map((toc) => toc.level));
+
   useEffect(() => {
     const contentElement = document.getElementById(BLOG_CONTENT_ELEMENT_ID);
 
@@ -31,7 +33,7 @@ const Toc = () => {
   return (
     <ul className={cx('Toc')}>
       {tocs.map((toc) => (
-        <li className={cx('content')} key={toc.slug}>
+        <li className={cx('content', `max-diff-${toc.level - maxTocLevel}`)} key={toc.slug}>
           <a href={`#${toc.slug}`}>{toc.content}</a>
         </li>
       ))}

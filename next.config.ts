@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: [{ hostname: 'chanyeong-assets.kr.object.ncloudstorage.com' }],
+    remotePatterns: [{ hostname: 'chanyeong-assets.kr.object.ncloudstorage.com' }, { hostname: 'image.toast.com' }],
   },
   webpack(config) {
     config.module.rules.push({

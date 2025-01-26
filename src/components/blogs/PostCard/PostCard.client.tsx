@@ -14,7 +14,7 @@ import styles from './PostCard.module.scss';
 
 const cx = classNames.bind(styles);
 
-const POST_CONTENT_LIMIT = 700;
+const POST_CONTENT_LIMIT = 500;
 
 interface PostCardProps {
   post: Omit<Post, 'numId' | 'user'>;
