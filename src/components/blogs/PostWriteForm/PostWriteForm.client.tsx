@@ -51,7 +51,7 @@ const PostWriteForm: React.FC<PostWriteFormProps> = ({ defaultValues, defaultIma
       <InputField name="title" placeholder="제목" className={cx('title-field')} required />
       <ToastUIEditor name="content" required onImageUpload={handleAddImage} />
       <MultiTagInputField name="tags" placeholder="Tags" />
-      <ImagesSelectField name="thumbnail" images={uploadedImages} required />
+      <ImagesSelectField name="thumbnail" images={uploadedImages} />
       <Button type={ButtonType.PRIMARY} htmlType="submit" className={cx('submit')}>
         Save
       </Button>
