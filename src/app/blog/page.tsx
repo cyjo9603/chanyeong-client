@@ -13,6 +13,7 @@ import { createQueryString } from '@/utils/searchParams';
 import FloatButton from '@/components/commons/FloatButton';
 import { WriteIcon } from '@/assets';
 import { userAtom } from '@/atoms/user.atom';
+import { PostCategory } from '@/types/apollo';
 
 import styles from './page.module.scss';
 
@@ -54,7 +55,11 @@ const BlogPage = () => {
     <div className={cx('BlogPage')}>
       <aside className={cx('side')}>
         <div className={cx('side-title')}>Tags</div>
-        <TagList seletedTag={selectedTagKey} onClick={handleTagClick} />
+        <TagList
+          seletedTag={selectedTagKey}
+          category={selectedTabKey !== TabKey.ALL ? (selectedTabKey as PostCategory) : undefined}
+          onClick={handleTagClick}
+        />
       </aside>
       <div className={cx('main')}>
         <div>

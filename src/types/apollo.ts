@@ -144,6 +144,11 @@ export type QueryPostArgs = {
 };
 
 
+export type QueryPostTagCountsArgs = {
+  category?: InputMaybe<PostCategory>;
+};
+
+
 export type QueryPostsArgs = {
   filter?: InputMaybe<Array<InputFilter>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -226,7 +231,9 @@ export type IncreasePostViewCountMutationVariables = Exact<{
 
 export type IncreasePostViewCountMutation = { __typename?: 'Mutation', increasePostViewCount?: { __typename?: 'Post', _id: any, viewCount: number } | null };
 
-export type GetPostTagCountsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetPostTagCountsQueryVariables = Exact<{
+  category?: InputMaybe<PostCategory>;
+}>;
 
 
 export type GetPostTagCountsQuery = { __typename?: 'Query', postTagCounts: Array<{ __typename?: 'PostTag', count: number, name: string }> };

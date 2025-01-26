@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 
 import { suspenseWrapperHoc } from '@/hocs/suspenseWrapper';
 import Tag, { TagLoading } from '@/components/commons/Tag';
-import { GetPostTagCountsQuery, GetPostTagCountsQueryVariables } from '@/types/apollo';
+import { GetPostTagCountsQuery, GetPostTagCountsQueryVariables, PostCategory } from '@/types/apollo';
 
 import styles from './TagList.module.scss';
 
@@ -14,11 +14,14 @@ const cx = classNames.bind(styles);
 
 interface TagListProps {
   seletedTag?: string;
+  category?: PostCategory;
   onClick?: (tagName: string) => void;
 }
 
-const TagList: React.FC<TagListProps> = ({ seletedTag, onClick }) => {
-  const { data } = useSuspenseQuery<GetPostTagCountsQuery, GetPostTagCountsQueryVariables>(localQuery);
+const TagList: React.FC<TagListProps> = ({ seletedTag, category, onClick }) => {
+  const { data } = useSuspenseQuery<GetPostTagCountsQuery, GetPostTagCountsQueryVariables>(localQuery, {
+    variables: { category: category ?? null },
+  });
 
   return (
     <ul className={cx('TagList')}>
@@ -38,8 +41,8 @@ const TagList: React.FC<TagListProps> = ({ seletedTag, onClick }) => {
 };
 
 export const localQuery = gql`
-  query GetPostTagCounts {
-    postTagCounts {
+  query GetPostTagCounts($category: PostCategory) {
+    postTagCounts(category: $category) {
       count
       name
     }
