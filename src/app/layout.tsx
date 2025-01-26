@@ -8,6 +8,7 @@ import Footer from '@/layouts/Footer';
 import Initializer from '@/components/Initializer/Initializer.server';
 import { Darkmode, DARKMODE_COOKIE } from '@/constants/cookie.constant';
 import { ApolloNextProvider } from '@/libs/apollo/apollo.client';
+import GoogleAnalytics from '@/components/libs/GoogleAnalytics';
 
 import styles from './layout.module.scss';
 
@@ -41,6 +42,7 @@ export default async function RootLayout({
         <link rel="icon" href={`${process.env.NEXT_PUBLIC_CDN_URL}/static/favicon.png`} type="image/x-icon" />
       </head>
       <body>
+        <GoogleAnalytics />
         <ApolloNextProvider cookie={cookieStore.toString()}>
           <JotaiProvider>
             <Initializer>

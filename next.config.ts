@@ -44,6 +44,10 @@ const nextConfig: NextConfig = {
             source: '/graphql',
             destination: 'http://localhost:4011/graphql',
           },
+          {
+            source: '/api/:path*',
+            destination: 'http://localhost:4011/api/:path*',
+          },
         ];
       }
     : undefined,
