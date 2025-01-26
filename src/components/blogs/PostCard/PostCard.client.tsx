@@ -2,6 +2,7 @@
 
 import React, { useMemo, forwardRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import removeMd from 'remove-markdown';
 import classNames from 'classnames/bind';
 
@@ -30,8 +31,7 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(({ post }, ref) =>
     <Link href={`/blog/posts/${post._id}`} className={cx('PostCard')} prefetch={false} ref={ref}>
       {post.thumbnail && (
         <div className={cx('img-container')}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={post.thumbnail!} alt={post.title} className={cx('img')} />
+          <Image src={post.thumbnail!} alt={post.title} className={cx('img')} fill />
         </div>
       )}
       <div className={cx('content-container')}>
