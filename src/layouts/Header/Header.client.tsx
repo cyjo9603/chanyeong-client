@@ -134,7 +134,6 @@ const Header: React.FC<HeaderProps> = ({ darkmodeCookie }) => {
           <div className={cx('division')} />
           <button onClick={changeDarkmode} className={cx('vertical-center', 'darkmode', 'icon')}>
             {isDarkmode ? <LightmodeIcon /> : <DarkmodeIcon />}
-            test
           </button>
         </div>
       </div>
