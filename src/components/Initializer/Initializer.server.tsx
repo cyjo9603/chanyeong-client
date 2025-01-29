@@ -3,8 +3,8 @@ import { gql } from '@apollo/client';
 import { cookies } from 'next/headers';
 
 import { getClient } from '@/libs/apollo/apollo.server';
-import { GetMeQuery } from '@/types/apollo';
-import { A_TOKEN } from '@/constants/cookie.constant';
+import { ServerRefreshMutation, ServerRefreshMutationVariables } from '@/types/apollo';
+import { A_TOKEN, R_TOKEN } from '@/constants/cookie.constant';
 
 import ClientInitializer from './Initializer.client';
 
@@ -16,28 +16,44 @@ const Initializer: React.FC<InitializerProps> = async ({ children }) => {
   try {
     const cookieStore = await cookies();
 
-    const token = cookieStore.get(A_TOKEN)?.value;
+    const currnetAccessToken = cookieStore.get(A_TOKEN)?.value;
+    const currentRefreshToken = cookieStore.get(R_TOKEN)?.value;
 
-    if (!token) {
+    if (!currnetAccessToken && !currentRefreshToken) {
       return <ClientInitializer>{children}</ClientInitializer>;
     }
     const client = await getClient();
-    const { data } = await client.query<GetMeQuery>({ query: localQuery });
+    const { data } = await client.mutate<ServerRefreshMutation, ServerRefreshMutationVariables>({
+      mutation: refreshMutation,
+    });
 
-    return <ClientInitializer user={data.me}>{children}</ClientInitializer>;
+    const { me, accessToken, refreshToken, maxAge } = data?._refresh || {};
+
+    const tokens = { accessToken, refreshToken, maxAge };
+
+    return (
+      <ClientInitializer user={me} tokens={tokens}>
+        {children}
+      </ClientInitializer>
+    );
   } catch {
     return <ClientInitializer>{children}</ClientInitializer>;
   }
 };
 
-const localQuery = gql`
-  query GetMe {
-    me {
-      _id
-      role
-      firstName
-      lastName
-      userId
+const refreshMutation = gql`
+  mutation ServerRefresh {
+    _refresh {
+      accessToken
+      refreshToken
+      maxAge
+      me {
+        _id
+        role
+        firstName
+        lastName
+        userId
+      }
     }
   }
 `;

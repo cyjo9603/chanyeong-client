@@ -159,6 +159,8 @@ export type QueryPostsArgs = {
 export type RefreshDto = {
   __typename?: 'RefreshDto';
   accessToken: Scalars['String']['output'];
+  maxAge: Scalars['Int']['output'];
+  me: UserDto;
   refreshToken: Scalars['String']['output'];
 };
 
@@ -202,10 +204,10 @@ export type EditBlogPostMutationVariables = Exact<{
 
 export type EditBlogPostMutation = { __typename?: 'Mutation', editPost: { __typename?: 'Post', _id: any, category: PostCategory, title: string, content: string, thumbnail?: string | null, tags?: Array<string> | null, viewCount: number, createdAt: any, updatedAt: any, deletedAt?: any | null } };
 
-export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
+export type ServerRefreshMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', me: { __typename?: 'UserDto', _id: any, role: UserRole, firstName: string, lastName: string, userId: string } };
+export type ServerRefreshMutation = { __typename?: 'Mutation', _refresh: { __typename?: 'RefreshDto', accessToken: string, refreshToken: string, maxAge: number, me: { __typename?: 'UserDto', _id: any, role: UserRole, firstName: string, lastName: string, userId: string } } };
 
 export type GetPostsQueryVariables = Exact<{
   filter?: InputMaybe<Array<InputFilter> | InputFilter>;
@@ -257,11 +259,6 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'UserDto', _id: any } };
-
-export type ServerRefreshMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ServerRefreshMutation = { __typename?: 'Mutation', _refresh: { __typename?: 'RefreshDto', accessToken: string, refreshToken: string } };
 
 export type GetPostQueryVariables = Exact<{
   id: Scalars['ObjectId']['input'];
