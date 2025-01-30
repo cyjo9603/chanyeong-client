@@ -260,6 +260,11 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'UserDto', _id: any } };
 
+export type ClientRefreshMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ClientRefreshMutation = { __typename?: 'Mutation', refresh: { __typename?: 'UserDto', _id: any } };
+
 export type GetPostQueryVariables = Exact<{
   id: Scalars['ObjectId']['input'];
 }>;
